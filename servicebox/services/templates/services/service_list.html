@@ -1,0 +1,18 @@
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<h1>Services</h1>
+<ul>
+  {% for service in object_list %}
+  <li>{{ service.name }}</li>
+  {% empty %}
+  <li>No Services yet.</li>
+  {% endfor %}
+</ul>

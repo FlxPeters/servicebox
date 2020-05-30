@@ -4,12 +4,10 @@
 Class Service
 Class Tenant
 Class TenantGroup
-Class Person
 Class Environment
 Class Platform
 Class PlatformGroup
 
-Tenant -- Person
 Tenant "0..1" --* "*" TenantGroup
 TenantGroup "1" *-- "*" TenantGroup : contains
 

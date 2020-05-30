@@ -1,16 +1,6 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
-
-
-class Person(models.Model):
-    """
-    A personal contact
-    """
-    name = models.CharField(max_length=200)
-    position = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.name
+from autoslug import AutoSlugField
 
 
 class TenantGroup(MPTTModel):
@@ -21,9 +11,7 @@ class TenantGroup(MPTTModel):
         max_length=50,
         unique=True
     )
-    slug = models.SlugField(
-        unique=True
-    )
+    slug = AutoSlugField(populate_from='name')
     parent = TreeForeignKey(
         to='self',
         on_delete=models.CASCADE,
@@ -55,9 +43,7 @@ class Tenant(models.Model):
         max_length=30,
         unique=True
     )
-    slug = models.SlugField(
-        unique=True
-    )
+    slug = AutoSlugField(populate_from='name')
     group = models.ForeignKey(
         to='tenancy.TenantGroup',
         on_delete=models.SET_NULL,
@@ -69,8 +55,6 @@ class Tenant(models.Model):
         max_length=200,
         blank=True
     )
-
-    default_contact = models.ForeignKey(Person, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.name
