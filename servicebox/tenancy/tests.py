@@ -21,8 +21,9 @@ class TenantModelTest(TestCase):
 
         group = TenantGroup(name="Corporations")
         group.save()
-        tenant = Tenant(name="ACME", slug="a-c-m-e",
-                        description="The ACME Corp", group=group)
+        tenant = Tenant(
+            name="ACME", slug="a-c-m-e", description="The ACME Corp", group=group
+        )
         tenant.save()
         self.assertEquals("ACME", tenant.name)
         self.assertEquals("a-c-m-e", tenant.slug)
@@ -38,7 +39,6 @@ class TenantModelTest(TestCase):
 
 
 class TenantGroupModelTest(TestCase):
-
     def test_slug_is_generated_on_save(self):
         group = TenantGroup(name="OPS")
         self.assertEquals("", group.slug)
