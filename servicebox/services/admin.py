@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Service, ExternalService
+from .models import Service, Link
 
 admin.site.register(Service)
-admin.site.register(ExternalService)
+admin.site.register(Link)

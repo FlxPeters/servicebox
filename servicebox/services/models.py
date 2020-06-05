@@ -4,29 +4,46 @@ from platforms.models import Platform
 from tenancy.models import Tenant
 from autoslug import AutoSlugField
 from modelchoices import Choices
+from taggit.managers import TaggableManager
 
 
 class ServiceStatusChoices(Choices):
-    STATUS_ACTIVE = ("ACTIVE", "Active")
-    STATUS_PLANNED = ("PLANNED", "planed")
-    STATUS_STAGED = ("STAGED", "staged")
-    STATUS_DECOMMISSIONING = ("DECOMMISSIONING", "Decommissioning")
-
-
-class BaseService(models.Model):
     """
-    An abstract definition of services.
-    A service has allways a unique name, status, owner and operator. 
+    Status to show the livecycle status of an service
+    """
+
+    PLANNED = ("PLANNED", "Planed")
+    STAGED = ("STAGED", "Staged")
+    ACTIVE = ("ACTIVE", "Active")
+    DECOMMISSIONING = ("DECOMMISSIONING", "Decommissioning")
+    INACTIVE = ("INACTIVE", "Inactive")
+
+
+class LinkTypeChoice(Choices):
+    """
+    Type of an service link
+    """
+
+    WEBSITE = ("WEBSITE", "Website")
+    DOCUMENTATION = ("DOCUMENTATION", "Documentation")
+    LOGIN = ("LOGIN", "Login")
+
+
+class Service(models.Model):
+    """
+    A service represents every kind of software doing some kind of work.
+    This could be a batch job, but also a HTTP based service or message broker.  
     """
 
     name = models.CharField(
         max_length=200, unique=True, help_text="Unique name of the service"
     )
-    slug = AutoSlugField(populate_from="name")
+    slug = AutoSlugField(populate_from="name", editable=True)
+    is_external = models.BooleanField(default=False)
     status = models.CharField(
         max_length=20,
         choices=ServiceStatusChoices.CHOICES,
-        default=ServiceStatusChoices.STATUS_ACTIVE,
+        default=ServiceStatusChoices.ACTIVE,
     )
     owner = models.ForeignKey(
         Tenant,
@@ -40,53 +57,21 @@ class BaseService(models.Model):
         help_text="Which tenant operates and runs this service?",
         related_name="%(app_label)s_%(class)s_operator",
     )
-    business_overview = models.TextField(
-        help_text="What business need is met by this service or system?",
-    )
-
-    class Meta:
-        abstract = True
-
-
-class ExternalService(BaseService):
-    """
-    Represents an service which is not under direct controll of the organization running servicebox.
-    """
-
-    website = models.URLField(
-        null=True, blank=True, help_text="Link to the website of the external service.",
-    )
-
-    # todo: sla
-    # statuspage
-    # monitoring
-
-
-class Service(BaseService):
-    """
-    A service represents every kind of software doing some kind of work.
-    This could be a batch job, but also a HTTP based service or message broker.  
-    """
-
     platform = models.ForeignKey(
         Platform,
         on_delete=models.PROTECT,
+        null=True,
+        blank=True,
         help_text="Platform the service is running on",
     )
-    source_code_link = models.URLField(
-        null=True,
-        blank=True,
-        help_text="Link to the source code and configuration management of the service.",
-    )
-    documentation_link = models.URLField(
-        null=True,
-        blank=True,
-        help_text="Link to the service docs. For example a Wiki page. ",
+    tags = TaggableManager(blank=True)
+    business_overview = models.TextField(
+        help_text="What business need is met by this service or system?",
     )
     technical_overview = models.TextField(
         null=True, blank=True, help_text="What kind of system is this"
     )
-    sla = models.CharField(
+    service_level = models.CharField(
         max_length=200,
         null=True,
         blank=True,
@@ -98,16 +83,22 @@ class Service(BaseService):
         blank=True,
         help_text="During what hours does the service or system actually need to operate? Can portions or features of the system be unavailable at times if needed?",
     )
-    components = models.TextField(
-        null=True,
-        blank=True,
-        help_text="Which distinct software applications, daemons, services, etc. make up the service or system?",
-    )
-    depends_on = models.ManyToManyField(
-        "Service",
-        blank=True,
-        help_text="What external dependencies does the service have?",
-    )
 
     def __str__(self):
         return self.name
+
+
+class Link(models.Model):
+    """
+    A link to a service related resource
+    """
+
+    link_type = models.CharField(
+        max_length=20, choices=LinkTypeChoice.CHOICES, default=LinkTypeChoice.WEBSITE,
+    )
+    url = models.URLField()
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    description = models.CharField(max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return self.url

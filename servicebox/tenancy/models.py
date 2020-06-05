@@ -9,7 +9,7 @@ class TenantGroup(MPTTModel):
     """
 
     name = models.CharField(max_length=50, unique=True)
-    slug = AutoSlugField(populate_from="name")
+    slug = AutoSlugField(populate_from="name", editable=True)
     parent = TreeForeignKey(
         to="self",
         on_delete=models.CASCADE,
@@ -36,7 +36,7 @@ class Tenant(models.Model):
     """
 
     name = models.CharField(max_length=30, unique=True)
-    slug = AutoSlugField(populate_from="name")
+    slug = AutoSlugField(populate_from="name", editable=True)
     group = models.ForeignKey(
         to="tenancy.TenantGroup",
         on_delete=models.SET_NULL,

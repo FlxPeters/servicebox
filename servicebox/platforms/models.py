@@ -10,7 +10,7 @@ class PlatformGroup(MPTTModel):
     """
 
     name = models.CharField(max_length=50, unique=True)
-    slug = AutoSlugField(populate_from="name")
+    slug = AutoSlugField(populate_from="name", editable=True)
     description = models.CharField(max_length=200, blank=True)
     parent = TreeForeignKey(
         to="self",
@@ -38,7 +38,7 @@ class Platform(models.Model):
     """
 
     name = models.CharField(max_length=50)
-    slug = AutoSlugField(populate_from="name")
+    slug = AutoSlugField(populate_from="name", editable=True)
     group = models.ForeignKey(
         PlatformGroup, on_delete=models.PROTECT, blank=True, null=True
     )

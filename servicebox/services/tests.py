@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from services.models import Service, ExternalService, ServiceStatusChoices
+from services.models import Service, ServiceStatusChoices
 from tenancy.models import Tenant
 from platforms.models import Platform
 
@@ -32,29 +32,4 @@ class ServiceModelTest(TestCase):
             owner=self.tenant_owner,
             platform=self.platform,
         )
-        self.assertEquals(ServiceStatusChoices.STATUS_ACTIVE, service.status)
-
-
-class ExternalServiceModelTest(TestCase):
-    def setUp(self):
-        self.tenant_owner = Tenant.objects.create(name="Acme Corp.")
-        self.tenant_operator = Tenant.objects.create(name="Operator Incl.")
-
-    def test_slug_is_generated_on_save(self):
-        ext = ExternalService(
-            name="Google Analytics",
-            operator=self.tenant_operator,
-            owner=self.tenant_owner,
-        )
-        self.assertEquals("", ext.slug)
-        ext.save()
-        self.assertEquals("google-analytics", ext.slug)
-
-    def test_service_is_active_by_default(self):
-
-        ext = ExternalService(
-            name="Google Analytics",
-            operator=self.tenant_operator,
-            owner=self.tenant_owner,
-        )
-        self.assertEquals(ServiceStatusChoices.STATUS_ACTIVE, ext.status)
+        self.assertEquals(ServiceStatusChoices.ACTIVE, service.status)

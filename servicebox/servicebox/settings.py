@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "mptt",
     "debug_toolbar",
     "bootstrap4",
+    "taggit",
 ]
 
 MIDDLEWARE = [
