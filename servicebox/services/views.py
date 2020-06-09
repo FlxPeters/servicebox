@@ -1,15 +1,17 @@
 from django.utils import timezone
-from django.views.generic.list import ListView
+from django_tables2 import SingleTableView
+from django.views.generic import DetailView
 
 from services.models import Service
+from .tables import ServiceTable
 
 
-class ServiceListView(ListView):
+class ServiceListView(SingleTableView):
 
     model = Service
-    paginate_by = 100  # if pagination is desired
+    table_class = ServiceTable
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["now"] = timezone.now()
-        return context
+
+class ServiceDetailView(DetailView):
+    model = Service
+    context_object_name = "service"

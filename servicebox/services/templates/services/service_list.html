@@ -1,18 +1,22 @@
-{# Load the tag library #}
-{% load bootstrap4 %}
+{% extends 'base.html' %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
+{% load render_table from django_tables2 %}
 
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
+{% block title %}Services{% endblock %}
 
+{% block header %}
 <h1>Services</h1>
-<ul>
-  {% for service in object_list %}
-  <li>{{ service.name }}</li>
-  {% empty %}
-  <li>No Services yet.</li>
-  {% endfor %}
-</ul>
+{% endblock %}
+
+{% block content %}
+
+<hr />
+<form class="form-inline mb-2">
+<label class="sr-only" for="inlineFormInputName2">Name</label>
+  <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Jane Doe">
+  <button type="submit" class="btn btn-default mb-2">Filter</button>
+
+</form>
+{% render_table table %}
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load debugtools_tags %}
+{% load render_table from django_tables2 %}
+
+{% block title %}Services{% endblock %}
+
+{% block header %}
+<h1>{{ service.name }}</h1>
+{% endblock %}
+
+{% block content %}
+
+ {% render_table object_list %}
+
+<a href="{% url 'services.views.list' %}">Back</a>
+
+{% endblock %}

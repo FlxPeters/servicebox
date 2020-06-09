@@ -1,0 +1,27 @@
+{% load static %}
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img id="logo" width="45" src="{% static '/img/logo_icon.svg' %}" /> ServiceBox
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'services.views.list' %}">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'platforms.views.list' %}">Platforms</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tenancy.views.list' %}">Tenants</a>
+                </li>    
+            </ul>            
+        </div>
+    </div>
+</nav>

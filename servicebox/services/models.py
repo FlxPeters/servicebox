@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from platforms.models import Platform
 from tenancy.models import Tenant
@@ -39,7 +40,9 @@ class Service(models.Model):
         max_length=200, unique=True, help_text="Unique name of the service"
     )
     slug = AutoSlugField(populate_from="name", editable=True)
-    is_external = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_external = models.BooleanField(default=False, verbose_name="External")
     status = models.CharField(
         max_length=20,
         choices=ServiceStatusChoices.CHOICES,
@@ -83,6 +86,12 @@ class Service(models.Model):
         blank=True,
         help_text="During what hours does the service or system actually need to operate? Can portions or features of the system be unavailable at times if needed?",
     )
+
+    def get_absolute_url(self):
+        return reverse("services.views.details", args=[str(self.id)])
+
+    def get_fully_qualified_name(self):
+        return "%s-%s" % (self.owner.slug, self.slug)
 
     def __str__(self):
         return self.name

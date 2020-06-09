@@ -16,15 +16,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
+from servicebox.views import HomeView
 
 admin.site.site_header = "Servicebox"
 
 urlpatterns = [
+    path("", HomeView.as_view(), name="home"),
     path("services/", include("services.urls")),
+    path("platforms/", include("platforms.urls")),
+    path("tenants/", include("tenancy.urls")),
     path("admin/", admin.site.urls),
 ]
 
 if settings.DEBUG:
     import debug_toolbar
-    urlpatterns = [path("__debug__/", include(debug_toolbar.urls)),] + urlpatterns
 
+    urlpatterns = [path("__debug__/", include(debug_toolbar.urls)),] + urlpatterns

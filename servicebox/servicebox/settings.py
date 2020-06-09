@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import platform
+
+
+VERSION = "0.0.1-dev"
+
+# Hostname
+HOSTNAME = platform.node()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,7 +49,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "mptt",
     "debug_toolbar",
-    "bootstrap4",
+    "debugtools",
+    "django_tables2",
     "taggit",
 ]
 
@@ -62,7 +70,7 @@ ROOT_URLCONF = "servicebox.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR + "/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -75,6 +83,10 @@ TEMPLATES = [
     },
 ]
 
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
+
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 WSGI_APPLICATION = "servicebox.wsgi.application"
 
 
@@ -107,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Berlin"
 
 USE_I18N = True
 

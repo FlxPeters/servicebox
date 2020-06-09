@@ -1,0 +1,30 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Ubuntu:wght@400;500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static '/bootstrap/4.0.0/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static '/css/main.css' %}">
+
+        <link rel="icon" type="image/svg+xml" href="{% static '/img/logo_icon.svg' %}" sizes="any">
+
+        <title>ServiceBox - {% block title %}Home{% endblock %}</title>
+    </head>
+    <body>
+        {% include 'inc/navbar.html' %}   
+        <main class="container mt-4" role="main">
+            {% block header %}{% endblock %}
+            {% block content %}{% endblock %}
+        </main>
+        <footer class="footer">
+            <div class="container">
+                <span class="text-muted">Place sticky footer content here.</span>
+            </div>
+        </footer>
+  </body>
+</html>

@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.views.generic import ListView
+from .models import Tenant
 
-# Create your views here.
+
+class TenantsListView(ListView):
+    model = Tenant
