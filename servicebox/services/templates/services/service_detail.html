@@ -7,7 +7,7 @@
 {% block header %}
 <div class="header">
     <h1>{{ service.name }}</h1>
-    <p><span class="lead">{{ service.get_fully_qualified_name}}</span>  </p>
+    <p class="lead">{{ service.get_fully_qualified_name}}</p>
     <p class="text-muted date">Created {{ service.created_at|date:"D d M Y"}} &middot; Updated {{ service.updated_at |timesince}}</p>
 </div>
 {% endblock %}

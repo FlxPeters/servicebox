@@ -6,6 +6,11 @@ body {
   max-width: 1600px;
 }
 
+.navbar {
+  font-size: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
 .navbar-brand {
   padding: 0;
   padding-right: 2rem;
@@ -38,9 +43,10 @@ h2 {
 
 .card-header {
   font-weight: bold;
-}
-.card-header {
   font-size: 1rem;
+}
+.card-header .badge {
+  font-size: 100%;
 }
 
 .card-body.card-table {
