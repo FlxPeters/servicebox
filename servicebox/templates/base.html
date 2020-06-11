@@ -17,17 +17,16 @@
     </head>
     <body>
         {% include 'inc/navbar.html' %}   
-        <main class="container mt-4" role="main">
-            {% block header %}{% endblock %}
+        {% block header %}{% endblock %}
+        <main class="container mt-4" role="main">            
             {% block content %}{% endblock %}
         </main>
         <footer class="footer">
             <div class="container">
                 <span class="text-muted">ServiceBox v0.0.1</span>
                 <span class="text-muted float-right">
-                    API 
+                    Docs &middot; Github &middot; Api 
                 </span>
-                
             </div>
         </footer>
   </body>

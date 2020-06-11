@@ -2,9 +2,51 @@
 
 {% block title %}Home{% endblock %}
 
+{% block header %}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-4">Welcome to ServiceBox</h1>
+        <p class="lead">Short description what it is.</p>
+    </div>
+</div>
+{% endblock %}
+
+
 {% block content %}
-<div class="jumbotron">
-    <h1 class="display-4">Welcome to ServiceBox</h1>
-    <p class="lead">Short description what it is.</p>
+<div class="row">
+  <div class="col">
+    <div class="card" >
+        <div class="card-header">
+            Services <span class="badge badge-secondary float-right">40</span>
+        </div>            
+        <div class="card-body">
+            <p class="card-text">Lorm Ipsum</p>
+            <a href="{% url 'services.views.list' %}" class="btn btn-light btn-sm">Explore services</a>
+        </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card" >
+        <div class="card-header">
+            Platforms <span class="badge badge-secondary float-right">11</span>
+        </div>            
+        <div class="card-body">
+            <p class="card-text">Lorm Ipsum </p>
+            <a href="{% url 'platforms.views.list' %}" class="btn btn-light btn-sm">Explore platforms</a>
+        </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card" >
+        <div class="card-header">
+            Tenants <span class="badge badge-secondary float-right">6</span>
+        </div>            
+        <div class="card-body">
+            <p class="card-text">Lorm Ipsum</p>
+            <a href="{% url 'tenancy.views.list' %}" class="btn btn-light btn-sm">Explore tenants</a>
+        </div>
+    </div>
+  </div>
+  
 </div>
 {% endblock %}

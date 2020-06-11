@@ -48,7 +48,7 @@ h2 {
 .card-header .badge {
   font-size: 100%;
 }
-
+/* 
 .card-body.card-table {
   padding: 0;
 }
@@ -59,4 +59,42 @@ h2 {
 .card-table .table th {
   padding-left: 1.25rem;
   width: 30%;
+} */
+
+.card > .table {
+  border-right: 0;
+  border-left: 0;
+  margin-bottom: 0;
+}
+
+.card > .table:last-child {
+  border-bottom: 0;
+}
+
+.card > .table:not(.table-sm) th,
+.card > .table:not(.table-sm) td {
+  padding: 0.75rem 1.25rem;
+}
+
+.card > .table td:first-child,
+.card > .table th:first-child {
+  border-left: 0;
+}
+
+.card > .table td:last-child,
+.card > .table th:last-child {
+  border-right: 0;
+}
+
+.card > .table tr:first-child td,
+.card > .table tr:first-child th {
+  border-top: 0;
+}
+
+.card > .table tr:last-child td {
+  border-bottom: 0;
+}
+
+.card .card-header + .table {
+  border-top: 0;
 }

@@ -5,7 +5,7 @@
 {% block title %}Services{% endblock %}
 
 {% block header %}
-<div class="header">
+<div class="header container mt-4 mb-2">
     <h1>{{ service.name }}</h1>
     <p class="lead">{{ service.get_fully_qualified_name}}</p>
     <p class="text-muted date">Created {{ service.created_at|date:"D d M Y"}} &middot; Updated {{ service.updated_at |timesince}}</p>
@@ -35,35 +35,31 @@
             <div class="card mb-3" >
                 <div class="card-header">
                     Tenants
-                </div>
-                <div class="card-body card-table">
-                    <table class="table table-hover">
-                    <tr>
-                        <th>Owner</th>
-                        <td>{{ service.owner.name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Operator</th>
-                        <td>{{ service.operator.name }}</td>
-                    </tr>
-                    </table>
-                </div>
+                </div>            
+                <table class="table table-hover">
+                <tr>
+                    <th>Owner</th>
+                    <td>{{ service.owner.name }}</td>
+                </tr>
+                <tr>
+                    <th>Operator</th>
+                    <td>{{ service.operator.name }}</td>
+                </tr>
+                </table>
             </div>
             <div class="card mb-3">
                 <div class="card-header">
                     Platform
-                </div>
-                <div class="card-body card-table">
-                    <table class="table table-hover">
-                    <tr>
-                        <th>Platform</th>
-                        <td>{{ service.platform.name }}</td>
-                    </tr><tr>
-                        <th>Platform group</th>
-                        <td>{{ service.platform.group.name }}</td>
-                    </tr>
-                    </table>
-                </div>
+                </div>            
+                <table class="table table-hover">
+                <tr>
+                    <th>Platform</th>
+                    <td>{{ service.platform.name }}</td>
+                </tr><tr>
+                    <th>Platform group</th>
+                    <td>{{ service.platform.group.name }}</td>
+                </tr>
+                </table>
             </div>
             <div class="card mb-3">
                 <div class="card-header">
