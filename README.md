@@ -29,6 +29,8 @@ A service is any kind of software or hardware that consists of one or more compo
 - storage system
 - external software as a service tool
 
+A service has a status to indicate its operational status and some fields for information related with the service. The model of services is based on the [runbook dialog sheet](https://github.com/SkeltonThatcher/run-book-template) and aims to give you a brief overview on how a service is designed and operated.
+
 ### Service relations
 
 Most of these services cannot act as a standalone service and have dependencies to other services to fullfil their job. These dependencies are described with service relations. A relation has a type like "is related" or "depends on" and a description to define the context of the relation.
@@ -76,6 +78,12 @@ A web link is similar to a service relation and has a type, description and URL.
 - A link to a runbook
 - A link to the moitoring dashboard od a service
 - The login page of a platform
+
+## Future features
+
+- Validate services based on given rules like "A active service must have a source control link" or "An active service must have an monitoring link".
+- Add event logs for stuff like maintenance or incidents
+- Add a endpoint entity to document the endpoints of an service like an HTTP or TCP endpoint. This could be handy to provision a monitoring system like we do it with netbox as source for discovery source.
 
 ## Architecture
 
