@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     "mptt",
     "django_tables2",
     "taggit",
+    "rest_framework",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
