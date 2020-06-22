@@ -5,7 +5,7 @@ from rest_framework import serializers
 class TenantSerializer(serializers.HyperlinkedModelSerializer):
 
     group = serializers.HyperlinkedRelatedField(
-        read_only=True, view_name="tenantgroup-detail"
+        read_only=True, view_name="tenancy-api:tenantgroup-detail"
     )
 
     class Meta:
@@ -16,7 +16,7 @@ class TenantSerializer(serializers.HyperlinkedModelSerializer):
 class TenantGroupSerializer(serializers.ModelSerializer):
 
     parent = serializers.HyperlinkedRelatedField(
-        read_only=True, view_name="tenantgroup-detail"
+        read_only=True, view_name="tenancy-api:tenantgroup-detail"
     )
 
     class Meta:

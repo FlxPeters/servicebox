@@ -5,10 +5,10 @@ from rest_framework import serializers
 class PlatformSerializer(serializers.HyperlinkedModelSerializer):
 
     group = serializers.HyperlinkedRelatedField(
-        read_only=True, view_name="platformgroup-detail"
+        read_only=True, view_name="platforms-api:platformgroup-detail"
     )
     tenant = serializers.HyperlinkedRelatedField(
-        read_only=True, view_name="tenant-detail"
+        read_only=True, view_name="tenancy-api:tenant-detail"
     )
 
     class Meta:
@@ -19,7 +19,7 @@ class PlatformSerializer(serializers.HyperlinkedModelSerializer):
 class PlatformGroupSerializer(serializers.ModelSerializer):
 
     parent = serializers.HyperlinkedRelatedField(
-        read_only=True, view_name="platformgroup-detail"
+        read_only=True, view_name="platforms-api:platformgroup-detail"
     )
 
     class Meta:

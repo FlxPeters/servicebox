@@ -3,6 +3,19 @@ from rest_framework import serializers
 
 
 class ServiceSerializer(serializers.HyperlinkedModelSerializer):
+
+    owner = serializers.HyperlinkedRelatedField(
+        read_only=True, view_name="tenancy-api:tenant-detail"
+    )
+
+    operator = serializers.HyperlinkedRelatedField(
+        read_only=True, view_name="tenancy-api:tenant-detail"
+    )
+
+    platform = serializers.HyperlinkedRelatedField(
+        read_only=True, view_name="platforms-api:platform-detail"
+    )
+
     class Meta:
         model = Service
         fields = [
@@ -16,4 +29,3 @@ class ServiceSerializer(serializers.HyperlinkedModelSerializer):
             "operator",
             "platform",
         ]
-

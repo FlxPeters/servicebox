@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from servicebox.views import HomeView
+from servicebox.views import APIRootView
 
 admin.site.site_header = "Servicebox"
 
@@ -26,6 +27,7 @@ urlpatterns = [
     path("platforms/", include("platforms.urls")),
     path("tenants/", include("tenancy.urls")),
     path("admin/", admin.site.urls),
+    path("api/", APIRootView.as_view(), name="api-root"),
     path("api/tenancy/", include("tenancy.api.urls")),
     path("api/platforms/", include("platforms.api.urls")),
     path("api/services/", include("services.api.urls")),
