@@ -2,6 +2,14 @@ from tenancy.models import Tenant, TenantGroup
 from rest_framework import serializers
 
 
+class NestedTenantSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name="tenancy-api:tenant-detail")
+
+    class Meta:
+        model = Tenant
+        fields = ["id", "url", "name", "slug"]
+
+
 class TenantSerializer(serializers.HyperlinkedModelSerializer):
 
     group = serializers.HyperlinkedRelatedField(

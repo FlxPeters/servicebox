@@ -50,12 +50,14 @@ INSTALLED_APPS = [
     "django_tables2",
     "taggit",
     "rest_framework",
+    "corsheaders",
     "django_extensions",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -87,6 +89,9 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 WSGI_APPLICATION = "servicebox.wsgi.application"
 
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:8080",
+]
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
