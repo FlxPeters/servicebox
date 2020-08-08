@@ -30,6 +30,37 @@ class LinkTypeChoice(Choices):
     LOGIN = ("LOGIN", "Login")
 
 
+class ServiceRealtionChoice(Choices):
+    """
+    Type of a service relation
+    """
+
+    RELATED = ("RELATED", "Is related to")
+    DEPENDS_ON = ("DEPENDS_ON", "Depends on")
+    BELONGS_TO = ("BELONGS_TO", "Belongs to")
+    DUPLICATES = ("DUPLICATES", "Duplicates")
+
+
+class ServiceRelation(models.Model):
+    """
+    A relation between two services
+    """
+
+    source = models.ForeignKey(
+        "Service", on_delete=models.CASCADE, related_name="source_service_set"
+    )
+    relation = models.CharField(max_length=20, choices=ServiceRealtionChoice.CHOICES)
+    dest = models.ForeignKey(
+        "Service", on_delete=models.CASCADE, related_name="dest_service_set",
+    )
+    comment = models.CharField(
+        max_length=200, null=True, blank=True, help_text="A comment about the relation"
+    )
+
+    def __str__(self):
+        return "{} {} {}".format(self.source, self.relation, self.dest)
+
+
 class Service(models.Model):
     """
     A service represents every kind of software doing some kind of work.
@@ -52,14 +83,24 @@ class Service(models.Model):
         Tenant,
         on_delete=models.PROTECT,
         help_text="Which tenant owns this service from a bussiness perspective and is responsible for it?",
-        related_name="%(app_label)s_%(class)s_owner",
+        related_name="owner",
     )
+    owner_contact_person = models.TextField(
+        null=True, blank=True, help_text="A primary contact person on the owner tenant"
+    )
+
     operator = models.ForeignKey(
         Tenant,
         on_delete=models.PROTECT,
         help_text="Which tenant operates and runs this service?",
-        related_name="%(app_label)s_%(class)s_operator",
+        related_name="operator",
     )
+    operator_contact_person = models.TextField(
+        null=True,
+        blank=True,
+        help_text="A primary contact person on the operator tenant",
+    )
+
     platform = models.ForeignKey(
         Platform,
         on_delete=models.PROTECT,
@@ -93,6 +134,12 @@ class Service(models.Model):
     def get_fully_qualified_name(self):
         return "%s-%s" % (self.owner.slug, self.slug)
 
+    def get_inbound_relations(self):
+        return self.dest_service_set.all()
+
+    def get_outbound_relations(self):
+        return self.source_service_set.all()
+
     def __str__(self):
         return self.name
 
@@ -106,8 +153,11 @@ class Link(models.Model):
         max_length=20, choices=LinkTypeChoice.CHOICES, default=LinkTypeChoice.WEBSITE,
     )
     url = models.URLField()
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    service = models.ForeignKey(
+        "Service", on_delete=models.CASCADE, related_name="links"
+    )
     description = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.url
+

@@ -1,6 +1,11 @@
 from django.test import TestCase
 
-from services.models import Service, ServiceStatusChoices
+from services.models import (
+    Service,
+    ServiceStatusChoices,
+    ServiceRelation,
+    ServiceRealtionChoice,
+)
 from tenancy.models import Tenant
 from platforms.models import Platform
 
@@ -33,3 +38,35 @@ class ServiceModelTest(TestCase):
             platform=self.platform,
         )
         self.assertEquals(ServiceStatusChoices.ACTIVE, service.status)
+
+    def test_service_has_related_services(self):
+        source = Service.objects.create(
+            name="Source",
+            operator=self.tenant_operator,
+            owner=self.tenant_owner,
+            platform=self.platform,
+        )
+        dest = Service.objects.create(
+            name="Dest",
+            operator=self.tenant_operator,
+            owner=self.tenant_owner,
+            platform=self.platform,
+        )
+
+        ServiceRelation.objects.create(
+            source=source,
+            relation=ServiceRealtionChoice.RELATED,
+            dest=dest,
+            comment="test",
+        )
+
+        inbound_list = dest.get_inbound_relations()
+        self.assertEqual(1, len(inbound_list))
+        self.assertEqual("test", inbound_list.first().comment)
+        self.assertEqual("Source", inbound_list.first().source.name)
+
+        outbound_list = source.get_outbound_relations()
+        self.assertEqual(1, len(outbound_list))
+        self.assertEqual("test", outbound_list.first().comment)
+        self.assertEqual("Dest", outbound_list.first().dest.name)
+
