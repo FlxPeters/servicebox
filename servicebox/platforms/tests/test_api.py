@@ -5,10 +5,59 @@ from platforms.models import Platform, PlatformGroup
 from tenancy.models import Tenant
 
 
+class PlatformGroupApiTest(APITestCase):
+    def test_get_platform_group_list(self):
+        """
+        Ensure we can a list of platforms
+        """
+        p = PlatformGroup.objects.create(name="Group")
+
+        url = reverse("platforms-api:platformgroup-list")
+        response = self.client.get(url, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
+
+    def test_create_platform_group(self):
+        """
+        Ensure we can a create of platforms
+        """
+        url = reverse("platforms-api:platformgroup-list")
+        data = {"name": "test-group", "slug": "test"}
+        response = self.client.post(url, data, format="json")
+
+        group = PlatformGroup.objects.all().first()
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(group.name, "test-group")
+
+    def test_update_platform_group(self):
+        """
+        Ensure we can a update of platforms
+        """
+        p = PlatformGroup.objects.create(name="Group")
+        url = reverse("platforms-api:platformgroup-detail", args=[p.id])
+        data = {"name": "test-group", "slug": "test"}
+        response = self.client.put(url, data, format="json")
+
+        group = PlatformGroup.objects.all().first()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(group.name, "test-group")
+
+    def test_delete_platform_group(self):
+        """
+        Ensure we can a delete of platforms
+        """
+        p = PlatformGroup.objects.create(name="Group")
+        url = reverse("platforms-api:platformgroup-detail", args=[p.id])
+
+        response = self.client.delete(url, format="json")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(PlatformGroup.objects.count(), 0)
+
+
 class PlatformApiTest(APITestCase):
     def test_get_platform_list(self):
         """
-        Ensure we can create a new account object.
+        Ensure we can a list of platforms
         """
         url = reverse("platforms-api:platform-list")
         response = self.client.get(url, format="json")
