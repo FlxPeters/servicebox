@@ -6,8 +6,7 @@ from tenancy.models import Tenant
 
 class PlatformGroupTest(TestCase):
     def _get_tenant(self):
-        tenant = Tenant(name="Acme Corp.")
-        tenant.save()
+        tenant = Tenant.objects.create(name="Acme Corp.")
         return tenant
 
     def test_slug_is_generated_on_save(self):
