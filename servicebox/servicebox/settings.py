@@ -47,12 +47,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "mptt",
-    "django_tables2",
     "taggit",
     "taggit_serializer",
     "rest_framework",
     "corsheaders",
-    "django_extensions",
+    "django_extensions"
 ]
 
 MIDDLEWARE = [
@@ -137,7 +136,6 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-#
 INTERNAL_IPS = [
     "127.0.0.1",
 ]

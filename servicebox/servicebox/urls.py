@@ -23,9 +23,6 @@ admin.site.site_header = "Servicebox"
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
-    path("services/", include("services.urls")),
-    path("platforms/", include("platforms.urls")),
-    path("tenants/", include("tenancy.urls")),
     path("admin/", admin.site.urls),
     path("api/", APIRootView.as_view(), name="api-root"),
     path("api/tenancy/", include("tenancy.api.urls")),
