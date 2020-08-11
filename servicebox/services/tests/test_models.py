@@ -5,6 +5,8 @@ from services.models import (
     ServiceStatusChoices,
     ServiceRelation,
     ServiceRealtionChoice,
+    Link,
+    LinkTypeChoice,
 )
 from tenancy.models import Tenant
 from platforms.models import Platform
@@ -70,3 +72,21 @@ class ServiceModelTest(TestCase):
         self.assertEqual("test", outbound_list.first().comment)
         self.assertEqual("Dest", outbound_list.first().dest.name)
 
+    def test_service_has_link(self):
+        svc = Service.objects.create(
+            name="Service",
+            operator=self.tenant_operator,
+            owner=self.tenant_owner,
+            platform=self.platform,
+        )
+
+        link = Link.objects.create(
+            link_type=LinkTypeChoice.WEBSITE,
+            url="http://example.com",
+            description="My fancy Website",
+            service=svc,
+        )
+
+        self.assertEqual(svc.links.first().url, "http://example.com")
+        self.assertEqual(svc.links.first().link_type, LinkTypeChoice.WEBSITE)
+        self.assertEqual(svc.links.first().description, "My fancy Website")

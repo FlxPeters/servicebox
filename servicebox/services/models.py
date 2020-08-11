@@ -109,24 +109,24 @@ class Service(models.Model):
         help_text="Platform the service is running on",
     )
     tags = TaggableManager(blank=True)
-    business_overview = models.TextField(
-        help_text="What business need is met by this service or system?",
+    summary = models.TextField(
+        help_text="A short summary about the service", null=True, blank=True
     )
-    technical_overview = models.TextField(
-        null=True, blank=True, help_text="What kind of system is this"
-    )
-    service_level = models.CharField(
-        max_length=200,
-        null=True,
-        blank=True,
-        help_text="What explicit or implicit expectations are there from users or clients about the availability of the service or system?",
-    )
-    hours_of_operation = models.CharField(
-        max_length=200,
-        null=True,
-        blank=True,
-        help_text="During what hours does the service or system actually need to operate? Can portions or features of the system be unavailable at times if needed?",
-    )
+    # technical_overview = models.TextField(
+    #     null=True, blank=True, help_text="What kind of system is this"
+    # )
+    # service_level = models.CharField(
+    #     max_length=200,
+    #     null=True,
+    #     blank=True,
+    #     help_text="What explicit or implicit expectations are there from users or clients about the availability of the service or system?",
+    # )
+    # hours_of_operation = models.CharField(
+    #     max_length=200,
+    #     null=True,
+    #     blank=True,
+    #     help_text="During what hours does the service or system actually need to operate? Can portions or features of the system be unavailable at times if needed?",
+    # )
 
     def get_absolute_url(self):
         return reverse("services.views.details", args=[str(self.id)])

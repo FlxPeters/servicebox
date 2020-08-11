@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "mptt",
     "django_tables2",
     "taggit",
+    "taggit_serializer",
     "rest_framework",
     "corsheaders",
     "django_extensions",
