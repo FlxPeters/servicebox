@@ -1,0 +1,6 @@
+.vscode
+venv
+.coverage
+docs
+frontend
+*/db.sqlite3
