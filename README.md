@@ -2,11 +2,21 @@
 
 Simple, lean service inventory management.
 
-## Development
-
 ## What is ServiceBox
 
 See: `/docs`
+
+## Development
+
+This project uses [Poetry](https://python-poetry.org/) as package manager.
+
+**Start a dev server**
+
+    poetry run python servicebox/manage.py runserver
+
+**Make migrations**
+
+    poetry run python servicebox/manage.py makemigrations
 
 ## Future features
 
@@ -16,4 +26,4 @@ See: `/docs`
 
 ## Credits
 
-ServiceBox is heavily inspired by Netbox, Jira.
+ServiceBox is heavily inspired by Netbox and Jira's way of linking issues.
