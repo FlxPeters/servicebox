@@ -2,6 +2,14 @@
 
 Simple, lean service inventory management.
 
+**Some notes on the futur of this project:**
+
+I started this project from a need to organize and maintain ownership and visibility of serivces in March 2020 because the was not other solution. 
+At the same time Spotify released Backstage as open source project with an similar scope. 
+This is a one man project and i can  not compete with a whole team at spotify. Also theit data model is much more mature. 
+
+This project is not dead but more in an archive state. Feel free to use the code and ideas. 
+
 ## What is ServiceBox
 
 See: `/docs`
